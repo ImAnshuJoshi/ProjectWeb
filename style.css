@@ -11,6 +11,11 @@ body{
     /* background-repeat: no-repeat; */
     color:white;
     overflow: hidden;
+    opacity:0;
+    transition: all 2s ease;
+}
+.visible{
+    opacity: 1;
 }
 nav{
     height:10vh;
