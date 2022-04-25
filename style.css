@@ -98,14 +98,30 @@ main > div{
         /* align-items: left; */
         justify-content: center;
     }
+    nav{
+        height:10vh;
+        width:100%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 0px 30px;
+    }
+    main{
+    height:90vh;
+    width:100%;
+    padding:0 30px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
     .left-section{
-        transform: translateY(7px);
+        transform: translateY(20px);
         text-align: left;
         width:100%;
     }
     .right-section{
         text-align: right;
         width:80%;
-        transform: translateY(20px);
+        transform: translateY(50px);
     }
 }
