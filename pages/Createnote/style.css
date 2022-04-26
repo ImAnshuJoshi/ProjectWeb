@@ -43,6 +43,9 @@ body{
     display: flex;
     text-align: center;
 }
+.create-note-heading:focus{
+    outline: none;
+}
 .create-note-input{
     border:none;
     height:70%;

@@ -21,7 +21,7 @@ const createNotes=(array)=>{
         card.classList.add('card');
         card.id=id;
 
-        card.innerHTML=`<div class="card-header"><div class="card-heading ">${heading}</div><div class="edit-note"><img src="../../assets/edit-note.svg" alt=""></div></div><div class="card-content">${content}</div>`;
+        card.innerHTML=`<div class="card-header"><div class="card-heading ">${heading}</div><a href="../UpdateNote/createnotes.html?IdNumber=${id}"><div class="edit-note"><img src="../../assets/edit-note.svg" alt=""></div></a></div><div class="card-content">${content}</div>`;
         
         cardContainer.appendChild(card);
     })
