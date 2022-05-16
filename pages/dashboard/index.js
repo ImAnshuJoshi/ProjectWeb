@@ -1,30 +1,61 @@
-const cardContainer=document.querySelector('.card-container');
+const cardContainer = document.querySelector(".card-container");
+const logout = document.querySelector(".logout");
+const createNoteButton = document.querySelector(".new-note");
 
-const cardData=[
-    {heading:"heading1" , content:"This is the content1", id:1},
-    {heading:"heading2" , content:"This is the content2", id:2},
-    {heading:"heading3" , content:"This is the content3", id:3},
-    {heading:"heading4" , content:"This is the content4", id:4},
-    {heading:"heading5" , content:"This is the content5", id:5},
-    {heading:"heading6" , content:"This is the content6", id:6},
-    {heading:"heading7" , content:"This is the content7", id:7},
-];
+const apiUrl = "http://localhost:8000";
 
-const createNotes=(array)=>{
-    array.forEach(cardObj=>{
-        // card.heading,
-        // card.content,
-        // card.id
-        const {heading,content,id}=cardObj;
+const token = localStorage.getItem("jwt");
 
-        const card=document.createElement('div');
-        card.classList.add('card');
-        card.id=id;
+logout.addEventListener("click", () => {
+  localStorage.removeItem("jwt");
+  location.href = "/";
+});
 
-        card.innerHTML=`<div class="card-header"><div class="card-heading ">${heading}</div><a href="../UpdateNote/createnotes.html?IdNumber=${id}"><div class="edit-note"><img src="../../assets/edit-note.svg" alt=""></div></a></div><div class="card-content">${content}</div>`;
-        
-        cardContainer.appendChild(card);
+let cardData = [];
+
+createNoteButton.addEventListener("click", () => {
+  location.href = "/pages/Createnote/createnotes.html";
+});
+
+const createNotes = (array) => {
+  cardContainer.innerHTML = "";
+
+  array.forEach((cardObj) => {
+    const { heading, content } = cardObj;
+    const id = cardObj.noteId;
+
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.id = id;
+
+    const insideHtml = `<div class="card-header"><div class="card-heading">${heading}</div><a href="../UpdateNote/createnotes.html?noteId=${id}"><div class="edit-note"><img src="../../assets/edit-note.svg" alt="" /></div></a></div><div class="card-content">${content}</div>`;
+
+    card.innerHTML = insideHtml;
+
+    cardContainer.appendChild(card);
+  });
+};
+
+const body = document.querySelector("body");
+
+window.addEventListener("load", () => {
+  body.classList.add("visible");
+
+  if (token) {
+    fetch(`${apiUrl}/note/getallnotes`, {
+      method: "GET",
+      headers: {
+        authorization: token,
+      },
     })
-}
-
-createNotes(cardData);
+      .then((res) => res.json())
+      .then((data) => {
+        cardData = data.data;
+        createNotes(data.data);
+      })
+      .catch((err) => {
+        alert("Error Fetching data");
+        console.log(err);
+      });
+  }
+});

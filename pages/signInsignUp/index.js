@@ -16,7 +16,29 @@ signInform.addEventListener('submit',(event)=>{
     const email=signInEmail.value;
     const password=signInPassword.value;
 
-    location.href='../dashboard/dashboard.html'
+    fetch(`${apiUrl}/auth/signin`,{
+      method:'POST',
+      headers:{
+      "Content-Type":"application/json",
+      },
+      body:JSON.stringify({email,password}),
+  })
+  .then((res)=>res.json())
+  .then((data)=>{
+      const {token}=data;
+      if(token){
+        localStorage.setItem("jwt",token);
+        location.href='../dashboard/dashboard.html'
+      }
+      else{
+        alert('Sign In again');
+      }
+      // console.log(data);
+  })
+  .catch((err)=>{
+      alert('Error signing In , please try again!')
+      console.log(err);
+  })
 })
 
 const signUpform=document.querySelector('.signup-form');
@@ -44,9 +66,18 @@ signUpform.addEventListener('submit',(event)=>{
   })
   .then((res)=>res.json())
   .then((data)=>{
-      console.log(data);
+      const {token}=data;
+      if(token){
+        localStorage.setItem("jwt",token);
+        location.href='../dashboard/dashboard.html'
+      }
+      else{
+        alert('Sign Up again');
+      }
+      // console.log(data);
   })
   .catch((err)=>{
-    //   console.log(err);
+      alert('Error signing up , please try again!')
+      console.log(err);
   })
 })
