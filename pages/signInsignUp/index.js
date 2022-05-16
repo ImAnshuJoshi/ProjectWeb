@@ -1,5 +1,5 @@
 const body=document.querySelector('body');
-const apiUrl = "https://afternoon-headland-23698.herokuapp.com";
+const apiUrl = "http://localhost:8000";
 
 window.addEventListener("load",()=>{
     body.classList.add("visible");
